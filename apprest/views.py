@@ -5,6 +5,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 from .models import Empresa, Calificacion
 from .serializers import EmpresaSerializer, CalificacionSerializer
+from django.shortcuts import render
 
 class JSONResponse(HttpResponse):
 	"""
@@ -14,7 +15,11 @@ class JSONResponse(HttpResponse):
 		content = JSONRenderer().render(data)
 		kwargs['content_type'] = 'application/json'
 		super(JSONResponse, self).__init__(content, **kwargs)
-        
+		
+def index(request):
+	return render(request, 'apprest/index.html')
+
+
 @csrf_exempt
 def lista_empresas(request):
 	"""
